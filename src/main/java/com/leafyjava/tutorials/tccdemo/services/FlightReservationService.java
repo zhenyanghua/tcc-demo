@@ -17,12 +17,12 @@ import static com.leafyjava.tutorials.tccdemo.utils.enums.TccStatus.CONFIRM;
 import static com.leafyjava.tutorials.tccdemo.utils.enums.TccStatus.TRY;
 
 @Service
-public class FlightService implements TccCompliantService<Flight, FlightReservation> {
+public class FlightReservationService implements TccCompliantService<Flight, FlightReservation> {
     private FlightReservationRepository reservationRepository;
     private FlightRepository flightRepository;
 
-    public FlightService(final FlightReservationRepository reservationRepository,
-                         final FlightRepository flightRepository) {
+    public FlightReservationService(final FlightReservationRepository reservationRepository,
+                                    final FlightRepository flightRepository) {
         this.reservationRepository = reservationRepository;
         this.flightRepository = flightRepository;
     }
