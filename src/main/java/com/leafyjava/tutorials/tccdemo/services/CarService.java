@@ -7,12 +7,14 @@ import com.leafyjava.tutorials.tccdemo.exceptions.ReservationExpiredException;
 import com.leafyjava.tutorials.tccdemo.exceptions.ResourceNotAvailableException;
 import com.leafyjava.tutorials.tccdemo.repositories.CarRepository;
 import com.leafyjava.tutorials.tccdemo.repositories.CarReservationRepository;
-import com.leafyjava.tutorials.tccdemo.utils.enums.TccStatus;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
+
+import static com.leafyjava.tutorials.tccdemo.utils.enums.TccStatus.CONFIRM;
+import static com.leafyjava.tutorials.tccdemo.utils.enums.TccStatus.TRY;
 
 @Service
 public class CarService implements TccCompliantService<CarInventory, CarReservation> {
@@ -33,9 +35,11 @@ public class CarService implements TccCompliantService<CarInventory, CarReservat
 
         CarInventory carInventoryAvailable = carRepository.findById(carInventory.getCategory())
             .orElseThrow(() -> new IllegalStateException("Can't find car category " + carInventory.getCategory() + " in the inventory"));
+
         if (carInventory.getStock() > carInventoryAvailable.getStock()) {
             throw new ResourceNotAvailableException("Car category " + carInventory.getCategory() + " is out of stock");
         }
+
         carInventoryAvailable.setStock(carInventoryAvailable.getStock() - carInventory.getStock());
         carRepository.save(carInventoryAvailable);
 
@@ -44,7 +48,7 @@ public class CarService implements TccCompliantService<CarInventory, CarReservat
         reservation.setCarCategory(carInventory.getCategory());
         reservation.setId(RandomStringUtils.randomAlphanumeric(6));
         reservation.setExpireTime(OffsetDateTime.now().plusSeconds(15));
-        reservation.setCarCategory(carInventory.getCategory());
+        reservation.setStatus(TRY);
 
         return reservationRepository.save(reservation);
     }
@@ -66,7 +70,7 @@ public class CarService implements TccCompliantService<CarInventory, CarReservat
         Preconditions.checkNotNull(reservation.getCarCategory());
         Preconditions.checkNotNull(reservation.getStatus());
 
-        if (reservation.getStatus() == TccStatus.TRY) {
+        if (reservation.getStatus() == TRY) {
             reservationRepository.deleteById(reservation.getId());
             CarInventory carInventory = carRepository.findById(reservation.getCarCategory())
                 .orElseThrow(() -> new IllegalStateException("Can't find car category " + reservation.getCarCategory() + " in the inventory"));
@@ -82,8 +86,8 @@ public class CarService implements TccCompliantService<CarInventory, CarReservat
         CarReservation reservation = reservationRepository.findById(id)
             .orElseThrow(() -> new ReservationExpiredException("Reservation " + id + " has been cancelled or doesn't exist"));
 
-        if (reservation.getStatus() == TccStatus.TRY) {
-            reservation.setStatus(TccStatus.CONFIRM);
+        if (reservation.getStatus() == TRY) {
+            reservation.setStatus(CONFIRM);
             reservationRepository.save(reservation);
         }
     }

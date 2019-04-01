@@ -14,5 +14,6 @@ public class FlightReservation {
     private String id;
     private OffsetDateTime expireTime;
     private TccStatus status;
-    private String seatId;
+    private String flightId;
+    private Integer seats;
 }

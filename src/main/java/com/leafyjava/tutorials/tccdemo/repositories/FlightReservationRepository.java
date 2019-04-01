@@ -9,6 +9,5 @@ import java.util.List;
 
 @Repository
 public interface FlightReservationRepository extends JpaRepository<FlightReservation, String> {
-    boolean existsBySeatId(String seatId);
     List<FlightReservation> findByExpireTimeAfter(OffsetDateTime time);
 }
