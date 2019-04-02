@@ -23,7 +23,7 @@ public class CarTask implements TccCompliantTask {
     @Override
     @Scheduled(fixedRate = 1000)
     public void autoCancel() {
-        List<CarReservation> expiredReservations = reservationRepository.findByExpireTimeAfter(OffsetDateTime.now());
+        List<CarReservation> expiredReservations = reservationRepository.findByExpireTimeBefore(OffsetDateTime.now());
         expiredReservations.forEach(reservation -> carReservationService.cancel(reservation));
     }
 }

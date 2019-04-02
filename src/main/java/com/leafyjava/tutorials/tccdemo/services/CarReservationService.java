@@ -47,7 +47,7 @@ public class CarReservationService implements TccCompliantService<CarInventory, 
         reservation.setStock(carInventory.getStock());
         reservation.setCarCategory(carInventory.getCategory());
         reservation.setId(RandomStringUtils.randomAlphanumeric(6));
-        reservation.setExpireTime(OffsetDateTime.now().plusSeconds(15));
+        reservation.setExpireTime(OffsetDateTime.now().plusSeconds(150));
         reservation.setStatus(TRY);
 
         return reservationRepository.save(reservation);
@@ -70,13 +70,11 @@ public class CarReservationService implements TccCompliantService<CarInventory, 
         Preconditions.checkNotNull(reservation.getCarCategory());
         Preconditions.checkNotNull(reservation.getStatus());
 
-        if (reservation.getStatus() == TRY) {
-            reservationRepository.deleteById(reservation.getId());
-            CarInventory carInventory = carRepository.findById(reservation.getCarCategory())
-                .orElseThrow(() -> new IllegalStateException("Can't find car category " + reservation.getCarCategory() + " in the inventory"));
-            carInventory.setStock(carInventory.getStock() + reservation.getStock());
-            carRepository.save(carInventory);
-        }
+        reservationRepository.deleteById(reservation.getId());
+        CarInventory carInventory = carRepository.findById(reservation.getCarCategory())
+            .orElseThrow(() -> new IllegalStateException("Can't find car category " + reservation.getCarCategory() + " in the inventory"));
+        carInventory.setStock(carInventory.getStock() + reservation.getStock());
+        carRepository.save(carInventory);
     }
 
     @Override

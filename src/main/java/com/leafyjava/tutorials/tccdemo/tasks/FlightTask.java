@@ -23,7 +23,7 @@ public class FlightTask implements TccCompliantTask {
     @Override
     @Scheduled(fixedRate = 1000)
     public void autoCancel() {
-        List<FlightReservation> expiredReservations = reservationRepository.findByExpireTimeAfter(OffsetDateTime.now());
+        List<FlightReservation> expiredReservations = reservationRepository.findByExpireTimeBefore(OffsetDateTime.now());
         expiredReservations.forEach(reservation -> flightReservationService.cancel(reservation));
     }
 }

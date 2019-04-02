@@ -47,7 +47,7 @@ public class FlightReservationService implements TccCompliantService<Flight, Fli
         reservation.setSeats(flight.getAvailableSeats());
         reservation.setFlightId(flight.getId());
         reservation.setId(RandomStringUtils.randomAlphanumeric(6));
-        reservation.setExpireTime(OffsetDateTime.now().plusSeconds(15));
+        reservation.setExpireTime(OffsetDateTime.now().plusSeconds(150));
         reservation.setStatus(TRY);
 
         return reservationRepository.save(reservation);
@@ -70,13 +70,11 @@ public class FlightReservationService implements TccCompliantService<Flight, Fli
         Preconditions.checkNotNull(reservation.getFlightId());
         Preconditions.checkNotNull(reservation.getStatus());
 
-        if (reservation.getStatus() == TRY) {
-            reservationRepository.deleteById(reservation.getId());
-            Flight flight = flightRepository.findById(reservation.getFlightId())
-                .orElseThrow(() -> new IllegalStateException("Can't find flight id " + reservation.getFlightId() + " from the scheduled flights"));
-            flight.setAvailableSeats(flight.getAvailableSeats() + reservation.getSeats());
-            flightRepository.save(flight);
-        }
+        reservationRepository.deleteById(reservation.getId());
+        Flight flight = flightRepository.findById(reservation.getFlightId())
+            .orElseThrow(() -> new IllegalStateException("Can't find flight id " + reservation.getFlightId() + " from the scheduled flights"));
+        flight.setAvailableSeats(flight.getAvailableSeats() + reservation.getSeats());
+        flightRepository.save(flight);
     }
 
     @Override

@@ -12,8 +12,8 @@ import java.time.OffsetDateTime;
 public class CarReservation {
     @Id
     private String id;
-    private OffsetDateTime expireTime;
-    private TccStatus status;
     private Integer stock;
     private String carCategory;
+    private OffsetDateTime expireTime;
+    private TccStatus status;
 }

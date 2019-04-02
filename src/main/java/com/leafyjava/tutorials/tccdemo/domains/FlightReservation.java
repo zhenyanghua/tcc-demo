@@ -12,8 +12,8 @@ import java.time.OffsetDateTime;
 public class FlightReservation {
     @Id
     private String id;
+    private Integer seats;
+    private String flightId;
     private OffsetDateTime expireTime;
     private TccStatus status;
-    private String flightId;
-    private Integer seats;
 }

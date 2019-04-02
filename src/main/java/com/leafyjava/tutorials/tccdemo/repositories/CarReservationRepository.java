@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface CarReservationRepository extends JpaRepository<CarReservation, String> {
-    List<CarReservation> findByExpireTimeAfter(OffsetDateTime time);
+    List<CarReservation> findByExpireTimeBefore(OffsetDateTime time);
 }

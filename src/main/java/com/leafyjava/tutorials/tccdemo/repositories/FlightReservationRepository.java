@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface FlightReservationRepository extends JpaRepository<FlightReservation, String> {
-    List<FlightReservation> findByExpireTimeAfter(OffsetDateTime time);
+    List<FlightReservation> findByExpireTimeBefore(OffsetDateTime time);
 }
