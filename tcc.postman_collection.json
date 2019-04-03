@@ -1,0 +1,297 @@
+{
+	"info": {
+		"_postman_id": "5443427d-a2cc-4527-8e41-e8cbf6f2ec69",
+		"name": "tcc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "reserve flight",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c0f7c3d5-6296-4de5-9569-1b653b8ecfa6",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"flightId\": \"UA375\",\n\t\"seats\": 2\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/flight/reservation",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"flight",
+						"reservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancel flight",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/flight/reservation/q1XA9j",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"flight",
+						"reservation",
+						"q1XA9j"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "confirm flight",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/flight/reservation/SmqA6N",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"flight",
+						"reservation",
+						"SmqA6N"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reserve car",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"category\": \"economy\",\n\t\"count\": 1\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/car/reservation",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"car",
+						"reservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancel car",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/car/reservation/S3aY80",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"car",
+						"reservation",
+						"S3aY80"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "confirm car",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/car/reservation/dq05lE",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"car",
+						"reservation",
+						"dq05lE"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "confirm coordinator",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"participantLinks\": [\n\t\t{\n\t       \"uri\": \"http://localhost:8080/flight/reservation/q1XA9j\",\n        \t\"expireTime\": \"2019-04-02T16:42:54.774-04:00\"\n    \t},\n    \t{\n        \t\"uri\": \"http://localhost:8080/car/reservation/Hz88AX\",\n\t        \"expireTime\": \"2019-04-02T16:03:34.795-04:00\"\n\t    }\n    ]\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/coordinator/reservation/confirm",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"coordinator",
+						"reservation",
+						"confirm"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancel coordinator",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"participantLinks\": [\n\t\t{\n\t        \"uri\": \"http://localhost:8080/flight/reservation/Oxwz50\",\n\t        \"expireTime\": \"2019-04-02T15:52:29.214-04:00\"\n    \t},\n    \t{\n\t        \"uri\": \"http://localhost:8080/car/reservation/FOdEWn\",\n\t        \"expireTime\": \"2019-04-02T15:53:03.431-04:00\"\n\t    }\n    ]\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/coordinator/reservation/cancel",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"coordinator",
+						"reservation",
+						"cancel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reserve car Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"category\": \"economy\",\n\t\"count\": 1\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/car/reservation",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"car",
+						"reservation"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

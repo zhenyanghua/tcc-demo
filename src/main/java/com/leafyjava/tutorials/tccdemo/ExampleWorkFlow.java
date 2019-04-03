@@ -38,7 +38,7 @@ public class ExampleWorkFlow {
 
     @EventListener(ApplicationReadyEvent.class)
     public void doWork() {
-        LOGGER.info("===============Book 1=============");
+        LOGGER.info("=============== 1st Book Attempt =============");
         LOGGER.info("Reserve 2 flight seats");
         Participant flightLink = bookFlight("UA375", 2);
         LOGGER.info("Reserve 1 car");
@@ -50,7 +50,7 @@ public class ExampleWorkFlow {
         tccRequest.setParticipantLinks(ImmutableList.of(flightLink, carLink));
         confirm(tccRequest);
 
-        LOGGER.info("===============Book 2=============");
+        LOGGER.info("=============== 2nd Book Attempt =============");
         LOGGER.info("Reserve 2 flight seats");
         flightLink = bookFlight("UA375", 2);
         LOGGER.info("Reserve 1 car");
